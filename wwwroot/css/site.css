@@ -8,6 +8,10 @@ html {
     }
 }
 
+.table{
+    color:white;
+}
+
 .form-control,
 label,
 .text-danger {
