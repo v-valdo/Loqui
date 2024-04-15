@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loqui.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240415185836_debuggingcreate")]
-    partial class debuggingcreate
+    [Migration("20240415214447_initialcreate")]
+    partial class initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -13,7 +13,7 @@ public class Post
     public string ApplicationUserId { get; set; }
 
     [ForeignKey("ApplicationUserId")]
-    public ApplicationUser ApplicationUser { get; set; }
+    public ApplicationUser? ApplicationUser { get; set; }
     public int? CategoryId { get; set; }
     public Category? Category { get; set; }
 
