@@ -61,8 +61,13 @@ namespace Loqui.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "User Name")]
-            public string UserName { get; set; }
+            [Display(Name = "Name")]
+            public string Name { get; set; }
+
+            [Required]
+            [DataType(DataType.EmailAddress)]
+            [Display(Name = "E-mail")]
+            public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -99,7 +104,7 @@ namespace Loqui.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
