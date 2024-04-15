@@ -22,6 +22,13 @@ namespace Loqui.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: Posts
+        public async Task<IActionResult> SearchForm()
+        {
+            var applicationDbContext = _context.Posts.Include(p => p.ApplicationUser).Include(p => p.Category);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
