@@ -8,6 +8,10 @@ html {
     }
 }
 
+.control-label {
+    color:white;
+}
+
 .table{
     color:white;
 }

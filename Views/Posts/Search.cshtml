@@ -1,0 +1,24 @@
+﻿<h4>Search</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SearchResult">
+            <div class="form-group">
+                <label for="SearchQuery" class="control-label">Search query</label>
+                <input name="SearchQuery" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="CategoryId" class="control-label">Category (can be left empty)</label>
+                <select id="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to all posts</a>
+</div>
