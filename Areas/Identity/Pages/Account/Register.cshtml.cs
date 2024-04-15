@@ -60,11 +60,6 @@ namespace Loqui.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Name")]
-            public string Name { get; set; }
-
-            [Required]
             [DataType(DataType.EmailAddress)]
             [Display(Name = "E-mail")]
             public string Email { get; set; }

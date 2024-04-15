@@ -23,10 +23,17 @@ namespace Loqui.Controllers
         }
 
         // GET: Posts/Search
-        public async Task<IActionResult> Search(string searchQuery, int categoryId)
+        public async Task<IActionResult> Search()
         {
             var applicationDbContext = _context.Posts.Include(p => p.ApplicationUser).Include(p => p.Category);
             return View();
+        }
+
+        // POST: Posts/SearchResult
+        public async Task<IActionResult> SearchResult(string searchQuery, int? categoryId)
+        {
+            var applicationDbContext = _context.Posts.Include(p => p.ApplicationUser).Include(p => p.Category);
+            return View("Index", await applicationDbContext.ToListAsync());
         }
 
         // GET: Posts/Details/5
@@ -52,8 +59,8 @@ namespace Loqui.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id");
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id");
+            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "UserName");
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Name");
             return View();
         }
 
@@ -62,7 +69,7 @@ namespace Loqui.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,AuthorId,CategoryId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,ApplicationUserId,CategoryId")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -70,9 +77,20 @@ namespace Loqui.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", post.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", post.CategoryId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "UserName", post.ApplicationUserId);
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Name", post.CategoryId);
+
+            var applicationUserModelState = ModelState["ApplicationUser"];
+            if (applicationUserModelState != null && applicationUserModelState.Errors.Any())
+            {
+                foreach (var error in applicationUserModelState.Errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                    var errorMessage = error.ErrorMessage;
+                }
+            }
             return View(post);
+
         }
 
         // GET: Posts/Edit/5
@@ -88,8 +106,8 @@ namespace Loqui.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", post.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", post.CategoryId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "UserName", post.ApplicationUserId);
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Name", post.CategoryId);
             return View(post);
         }
 
@@ -98,7 +116,7 @@ namespace Loqui.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,AuthorId,CategoryId")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,ApplicationUserId,CategoryId")] Post post)
         {
             if (id != post.Id)
             {
@@ -125,8 +143,8 @@ namespace Loqui.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", post.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", post.CategoryId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "UserName", post.ApplicationUserId);
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Name", post.CategoryId);
             return View(post);
         }
 

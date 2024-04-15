@@ -4,6 +4,7 @@ using Loqui.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loqui.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240415181646_nameAdded")]
+    partial class nameAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +49,10 @@ namespace Loqui.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -116,7 +123,7 @@ namespace Loqui.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -283,7 +290,9 @@ namespace Loqui.Migrations
 
                     b.HasOne("Loqui.Models.Category", "Category")
                         .WithMany("Posts")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ApplicationUser");
 
