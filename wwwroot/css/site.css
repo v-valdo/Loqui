@@ -9,12 +9,29 @@ html {
 }
 
 .control-label {
-    color:white;
+    color: white;
 }
 
-.table{
-    color:white;
+.table {
+    color: white;
 }
+
+.btn-primary {
+    background-color: darkslategray;
+    border-color: black;
+}
+
+.btn-primary:hover {
+        background-color: darkseagreen;
+        border-color: black;
+}
+
+    .btn-check:focus + .btn-primary, .btn-primary:focus {
+        color: #fff;
+        background-color: #0b5ed7;
+        border-color: black;
+        box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+    }
 
 .form-control,
 label,
