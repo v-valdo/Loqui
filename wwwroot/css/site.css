@@ -19,6 +19,8 @@ html {
 .btn-primary {
     background-color: darkslategray;
     border-color: black;
+    margin-top: 26px;
+    margin-bottom:10px;
 }
 
 .btn-primary:hover {

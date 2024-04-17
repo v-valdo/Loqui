@@ -32,11 +32,24 @@ namespace Loqui.Controllers
         }
 
         // POST: Posts/SearchResult
-        public async Task<IActionResult> SearchResult(string searchQuery, int? categoryId)
+        public async Task<IActionResult> SearchResults(string SearchQuery, int? CategoryId)
         {
-            var applicationDbContext = _context.Posts.Include(p => p.ApplicationUser).Include(p => p.Category);
-            return View("Index", await applicationDbContext.ToListAsync());
+            var searchPosts = from p in _context.Posts
+                              select p;
+
+            if (!String.IsNullOrEmpty(SearchQuery))
+            {
+                searchPosts = searchPosts.Where(s => s.Title!.Contains(SearchQuery));
+            }
+
+            if (CategoryId.HasValue)
+            {
+                searchPosts = searchPosts.Where(s => s.CategoryId! == CategoryId);
+            }
+
+            return View("Index", await searchPosts.ToListAsync());
         }
+
 
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
