@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loqui.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240415214447_initialcreate")]
-    partial class initialcreate
+    [Migration("20240416072116_publisheddate")]
+    partial class publisheddate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,6 +125,9 @@ namespace Loqui.Migrations
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Published")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()

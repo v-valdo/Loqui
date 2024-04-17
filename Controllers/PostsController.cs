@@ -26,6 +26,8 @@ namespace Loqui.Controllers
         public async Task<IActionResult> Search()
         {
             var applicationDbContext = _context.Posts.Include(p => p.ApplicationUser).Include(p => p.Category);
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return View();
         }
 
@@ -182,7 +184,6 @@ namespace Loqui.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);

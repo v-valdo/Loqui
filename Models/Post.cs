@@ -8,7 +8,7 @@ public class Post
     public int Id { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }
-
+    public DateTime Published { get; set; }
     [Required]
     public string ApplicationUserId { get; set; }
 
@@ -19,6 +19,6 @@ public class Post
 
     public Post()
     {
-
+        Published = DateTime.UtcNow;
     }
 }
