@@ -1,11 +1,51 @@
 html {
-    font-size: 14px;
+    font-size: 12px;
+}
+
+
+.fira-mono-regular {
+    font-family: "Fira Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fira-mono-medium {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.fira-mono-bold {
+    font-family: "Fira Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Fira Mono', monospace;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 14px;
     }
+}
+
+a {
+    color: #51c892
+}
+
+.nav-item:hover {
+    background-color: black !important;
+    transition: background-color 0.8s ease;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-item {
+    border: 1px solid #000;
 }
 
 .control-label {
@@ -24,7 +64,7 @@ html {
 }
 
 .btn-primary:hover {
-        background-color: darkseagreen;
+        background-color: black;
         border-color: black;
 }
 
@@ -44,11 +84,6 @@ label,
     .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
         box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
     }
-
-.navbar-bg .navbar-nav .nav-link {
-    color: white !important;
-    background-color: #323232 !important;
-}
 
 body {
     background-color: #323232;
