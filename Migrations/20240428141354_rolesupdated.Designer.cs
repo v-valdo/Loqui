@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loqui.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240428114056_usernameInsteaofEmail")]
-    partial class usernameInsteaofEmail
+    [Migration("20240428141354_rolesupdated")]
+    partial class rolesupdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

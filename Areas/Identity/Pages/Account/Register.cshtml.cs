@@ -110,6 +110,7 @@ namespace Loqui.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                // adding default role "User" to newly registered users
                 await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 var role = new IdentityRole("User");

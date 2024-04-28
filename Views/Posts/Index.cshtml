@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Posts";
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <h1>Posts</h1>
@@ -14,9 +15,6 @@
         <tr>
             <th>
                 Title
-            </th>
-            <th>
-                Content
             </th>
             <th>
                 User
@@ -34,10 +32,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
@@ -48,11 +43,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Published)
                 </td>
+                @if (isAdmin)
+                {
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+                }
         </tr>
 }
     </tbody>
