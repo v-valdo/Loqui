@@ -1,5 +1,6 @@
 ﻿using Loqui.Data;
 using Loqui.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +73,7 @@ namespace Loqui.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "UserName");
