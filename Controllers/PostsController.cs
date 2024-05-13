@@ -73,7 +73,7 @@ namespace Loqui.Controllers
         }
 
         // GET: Posts/Create
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "UserName");

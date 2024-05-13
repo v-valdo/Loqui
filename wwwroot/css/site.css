@@ -98,3 +98,16 @@ html {
 body {
     margin-bottom: 60px;
 }
+
+.cards {
+    background-color: #2f423f; 
+    border: 1px solid #333;
+    border-radius: 10px;
+    transition: transform 0.8s;
+    cursor:pointer;
+}
+
+.cards:hover {
+        transform: scale(1.02);
+        opacity:0.8;
+    }

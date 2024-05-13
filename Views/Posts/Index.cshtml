@@ -1,57 +1,44 @@
 ﻿@model IEnumerable<Loqui.Models.Post>
 
 @{
-    ViewData["Title"] = "Posts";
+    ViewData["Title"] = "Forum";
     bool isAdmin = User.IsInRole("Admin");
 }
 
-<h1>Posts</h1>
+<div class="container">
+    <h1>Forum</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                User
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Published
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Published)
-                </td>
-                @if (isAdmin)
-                {
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-                }
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="row">
+        @foreach (var post in Model)
+        {
+            <div class="col-md-6">
+                <div class="card cards mb-3" onclick="location.href='@Url.Action("Details", "Posts", new { id = post.Id })'">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => post.Title)
+                            <small class="text-muted">- Posted by: @(post.ApplicationUser != null ? post.ApplicationUser.UserName : "Unknown"), Published: @post.Published.ToString("yyyy-MM-dd HH:mm")</small> <!-- Display date with hour and minute only -->
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p>@(post.Content != null ? post.Content.Substring(0, Math.Min(200, post.Content.Length)) : "No content available")</p>
+                    </div>
+                    @if (isAdmin)
+                    {
+                        <div class="card-footer">
+                            <p class="text-muted">Admin Tools</p>
+                            <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-primary btn-sm">Edit</a>
+                            <a asp-action="Details" asp-route-id="@post.Id" class="btn btn-info btn-sm">Details</a>
+                            <a asp-action="Delete" asp-route-id="@post.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-left">
+            <a asp-action="Create" class="btn btn-success">Create New Post</a>
+        </div>
+    </div>
+</div>

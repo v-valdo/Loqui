@@ -19,6 +19,6 @@ public class Post
 
     public Post()
     {
-        Published = DateTime.UtcNow;
+        Published = DateTime.Now;
     }
 }
